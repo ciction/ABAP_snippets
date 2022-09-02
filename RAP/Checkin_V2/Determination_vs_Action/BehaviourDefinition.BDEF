@@ -1,0 +1,78 @@
+managed; 
+with draft;
+
+define behavior for ZHR_M_CHECK_IN_V2 
+implementation in class ZCL_M_CHECK_IN_V2 unique
+
+persistent table zhr_chin_v2
+lock master
+total etag local_last_changed_at
+draft table zhr_chin_v2d
+{
+  create;
+  update ( precheck );
+  delete;
+
+  field ( numbering : managed, readonly ) Id;
+  field ( readonly ) last_changed_at, local_last_changed_at;
+
+//==========================================================================================
+  determination generateWindowsUserName on modify { field FirstName; field LastName; }
+  action generateWindowsUserName_act result [1]  $self;
+//==========================================================================================
+
+  mapping for zhr_chin_v2
+  {
+    Id = id;
+    CheckInId = checkinid;
+    CreatedBy = created_by;
+    CreatedOn = created_on;
+    ChangedBy = changed_by;
+    ChangedOn = changed_on;
+    CheckInStatus = check_in_status;
+    InternalOrExternal = internal_or_external;
+    StartDate = start_date;
+    EndDate = end_date;
+    PersonnelNumber = personnel_number;
+    LastName = last_name;
+    FirstName = first_name;
+    DateOfBirth = date_of_birth;
+    Language = language;
+    FormOfAddress = form_of_address;
+    EliaCompany = elia_company;
+    ShoppingCartItem = shopping_cart_item;
+    PurchaseOrder = purchase_order;
+    PurchaseOrderItem = purchase_order_item;
+    PurchaseOrderStartDate = purchase_order_start_date;
+    PurchaseOrderEndDate = purchase_order_end_date;
+    ShoppingCart = shopping_cart;
+    ShoppingCartStartDate = shopping_cart_start_date;
+    ShoppingCartEndDate = shopping_cart_end_date;
+    Vendor = vendor;
+    VendorTxt = vendor_txt;
+    PhoneNumber = phone_number;
+    Manager = manager;
+    ManagerTxt = manager_txt;
+    Hu = hu;
+    WorkLocationKey = work_location_key;
+    WorkLocationArea = work_location_area;
+    WorkLocation = work_location;
+    SkypeEnabled = skype_enabled;
+    StandardHardware = standard_hardware;
+    WindowsUserRequested = windows_user_requested;
+    WindowsUser = windows_user;
+    FiftyhzUserRequested = fiftyhz_user_requested;
+    FiftyhzUser = fiftyhz_user;
+    ElkeyRequested = elkey_requested;
+    BadgeRequested = badge_requested;
+    EmailType = email_type;
+    EmailAddress = email_address;
+    WorkDaysPerWeek = work_days_per_week;
+    TimeRegistrationCats = time_registration_cats;
+    SiteOn1stday = site_on_1stday;
+    Go4zeromailSent = go4zeromail_sent;
+    Go4zeromailMgr = go4zeromail_mgr;
+    Rehire = rehire;
+    ZSfsfSTrnsfr2sf = z_sfsf_s_trnsfr2sf;
+  }
+}
